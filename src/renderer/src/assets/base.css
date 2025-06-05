@@ -1,0 +1,53 @@
+:root {
+  /* BLUEWATER ANGLERS BACKGROUND COLOR CODES */
+  --ba-bg-blue: #90acdc;
+
+  /* BLUEWATER ANGLERS TEXT COLOR CODES */
+  --ba-text-white: #ffffff;
+  --ba-text-black: #000000;
+  --ba-text-red: #ff0000;
+
+  /* BLUEWATER ANGLERS BUTTON COLOR CODES */
+  --ba-button-grey: #a9a9a9;
+  --ba-button-white: #ffffff;
+  --ba-button-light-grey: #d9d9d9;
+  --ba-button-green: #69ff4b;
+  --ba-button-red: #ff4545;
+  --ba-button-tabs: rgba(0, 0, 0, 0.5);
+
+  --ba-button-old-color: #c6d4f7;
+
+  /* BLUEWATER ANGLERS INPUT COLOR CODES */
+  --ba-input-locked: #737373;
+
+  /* BLUEWATER ANGLERS BORDERS */
+  --ba-border-black: #000;
+  --ba-border-grey: #8998b1;
+
+  /* BLUEWATER ANGLERS TABLE COLOR CODES */
+  --ba-table-bg: #bad4ff;
+}
+
+:root {
+  --color-background: var(--ba-bg-blue);
+  --color-text: var(--ba-text-black);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.6;
+  font-family: Inter, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
