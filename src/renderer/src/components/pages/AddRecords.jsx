@@ -3,7 +3,7 @@ import { FormField } from '../molecules'
 import { TankTable } from '../organisms/TankTable/TankTable'
 import { TankForm } from './AddTanks'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
-import { Button } from '../atoms'
+import { Button, Input, Labels } from '../atoms'
 
 export const AddRecords = () => {
   const navigate = useNavigate()
@@ -18,6 +18,8 @@ export const AddRecords = () => {
 
   const [formData, setFormData] = useState({
     header_pressure_in: '',
+    header_pressure_in_south: '',
+    header_pressure_in_north: '',
     pump_1_active: false,
     pump_2_active: false,
     pump_3_active: false,
@@ -50,6 +52,16 @@ export const AddRecords = () => {
       const fetchData = async () => {
         const data = await window.electron.api.getRecordById(id)
         if (data) {
+          let pressures =
+            data.header_pressure_in && data.header_pressure_in !== ''
+              ? data.header_pressure_in.split('/')
+              : []
+          let header_pressure_in_south = pressures[0] ? parseInt(pressures[0].trim()) : ''
+          let header_pressure_in_north = pressures[1] ? parseInt(pressures[1].trim()) : ''
+
+          data.header_pressure_in_south = header_pressure_in_south
+          data.header_pressure_in_north = header_pressure_in_north
+
           setFormData(data)
           setTanks(data.tank_snapshots)
         }
@@ -103,6 +115,7 @@ export const AddRecords = () => {
   }
 
   const handleSubmit = async () => {
+    formData.header_pressure_in = `${formData.header_pressure_in_south} / ${formData.header_pressure_in_north}`
     formData.tank_snapshots = tanks
     const payload = {
       plant_reading: normalizeValues(formData),
@@ -139,12 +152,31 @@ export const AddRecords = () => {
           <div className="add-records-container">
             <FormField label="DATE" name="date" value={today} disabled />
 
-            <FormField
-              label="HEADER PRESSURE"
-              name="header_pressure_in"
-              value={formData.header_pressure_in}
-              onChange={handleChange}
-            />
+            <div className="form-field-container">
+              <label htmlFor={'header_pressure_in_south'} className="form__label">
+                HEADER PRESSURE (SOUTH / NORTH)
+              </label>
+              <input
+                className="form__input"
+                maxLength={'4'}
+                size={'3'}
+                name="header_pressure_in_south"
+                value={formData.header_pressure_in_south}
+                onChange={handleChange}
+              />
+              <label htmlFor={'header_pressure_in_north'} className="form__label">
+                {' '}
+                /{' '}
+              </label>
+              <input
+                className="form__input"
+                name="header_pressure_in_north"
+                maxLength={'4'}
+                size={'3'}
+                value={formData.header_pressure_in_north}
+                onChange={handleChange}
+              />
+            </div>
 
             <div className="form__pumps-block">
               <FormField
@@ -189,12 +221,14 @@ export const AddRecords = () => {
               name="east_well_pressure"
               value={formData.east_well_pressure}
               onChange={handleChange}
+              type='number'
             />
             <FormField
               label="WATER TEMPERATURE"
               name="water_temperature"
               value={formData.water_temperature}
               onChange={handleChange}
+              type='number'
             />
 
             <div className="form__blowers-block">
@@ -226,12 +260,14 @@ export const AddRecords = () => {
               name="east_blower_header_pressure"
               value={formData.east_blower_header_pressure}
               onChange={handleChange}
+              type='number'
             />
             <FormField
               label="WEST BLOWER HEADER PRESSURE"
               name="west_blower_header_pressure"
               value={formData.west_blower_header_pressure}
               onChange={handleChange}
+              type='number'
             />
 
             <FormField
@@ -247,12 +283,14 @@ export const AddRecords = () => {
               name="diesel_room_temperature"
               value={formData.diesel_room_temperature}
               onChange={handleChange}
+              type='number'
             />
             <FormField
               label="BATTERY VOLTAGE"
               name="battery_voltage"
               value={formData.battery_voltage}
               onChange={handleChange}
+              type='number'
             />
 
             <div className="form__generator-block">
@@ -278,12 +316,14 @@ export const AddRecords = () => {
                 name="generator_hours"
                 value={formData.generator_hours}
                 onChange={handleChange}
+                type='number'
               />
               <FormField
                 label="GENERATOR MINUTES"
                 name="generator_minutes"
                 value={formData.generator_minutes}
                 onChange={handleChange}
+                type='number'
               />
             </div>
 
@@ -292,6 +332,7 @@ export const AddRecords = () => {
               name="fuel_tank_level"
               value={formData.fuel_tank_level}
               onChange={handleChange}
+              type='number'
             />
 
             <div className="form__control-block">

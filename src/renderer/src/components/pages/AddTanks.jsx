@@ -128,7 +128,7 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
         ))}
       </Select>
 
-      <div className='form__tank-block'>
+      <div className="form__tank-block">
         {/* Fish Type Dropdown */}
         <Labels>FISH TYPE</Labels>
         <Select name="fish_type_name" value={tankData.fish_type_name} onChange={handleChange}>
@@ -157,7 +157,14 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
           onChange={handleChange}
         />
       </div>
-      <FormField label="DO" name="do_level" value={tankData.do_level} onChange={handleChange} />
+
+      <FormField
+        type="number"
+        label="DO"
+        name="do_level"
+        value={tankData.do_level}
+        onChange={handleChange}
+      />
 
       {/* Food Size Dropdown */}
       <Labels>FOOD SIZE (EVERY TUESDAY)</Labels>
@@ -179,6 +186,7 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
       <FormField
         label="FISH SIZE (EVERY TUESDAY)"
         name="fish_size"
+        type="number"
         value={tankData.fish_size}
         onChange={handleChange}
         disabled={!isTuesday && !isAdmin}
@@ -187,11 +195,18 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
       <FormField
         label="NUMBER OF FISHES"
         name="number_of_fishes"
+        type="number"
         value={tankData.number_of_fishes}
         onChange={handleChange}
       />
 
-      <FormField label="DIET" name="diet" value={tankData.diet} onChange={handleChange} />
+      <FormField
+        type="number"
+        label="DIET"
+        name="diet"
+        value={tankData.diet}
+        onChange={handleChange}
+      />
 
       <Labels>DIET TYPE (GRAMS / L)</Labels>
       <Select name="diet_type" value={tankData.diet_type} onChange={handleChange}>
@@ -203,7 +218,13 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
         ))}
       </Select>
 
-      <FormField label="MORT" name="mort" value={tankData.mort} onChange={handleChange} />
+      <FormField
+        label="MORT"
+        type="number"
+        name="mort"
+        value={tankData.mort}
+        onChange={handleChange}
+      />
 
       <Button onClick={handleSubmit}>Save</Button>
       <Button onClick={onCancel}>Cancel</Button>

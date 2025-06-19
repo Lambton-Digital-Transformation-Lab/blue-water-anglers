@@ -43,15 +43,15 @@ body {
   width: 30%;
 }
 
-.header-logo-container > img,
-.header-logo-container > h1 {
+.header-logo-container>img,
+.header-logo-container>h1 {
   padding: 20px;
   font-weight: bold;
   font-size: 2rem;
   color: var(--ba-text-white);
 }
 
-.header-logo-container > h1 {
+.header-logo-container>h1 {
   width: 30%;
 }
 
@@ -150,6 +150,25 @@ tr:hover {
   background-color: var(--ba-button-red);
 }
 
+.form__input {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  margin: 10px 0;
+  font-size: 18px;
+  background-color: var(--ba-button-white);
+  color: var(--ba-text-black);
+}
+
+.form__label {
+  display: inline-block;
+  padding: 5px 16px;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--ba-text-black);
+}
+
 .add-record-container {
   display: flex;
   /* margin: 20px; */
@@ -206,12 +225,16 @@ td {
 }
 
 .chart-container {
-  width: 100%; /* full width */
-  overflow-x: auto; /* horizontal scroll if needed */
+  width: 100%;
+  /* full width */
+  overflow-x: auto;
+  /* horizontal scroll if needed */
   /* optional: fixed height or min-height */
   height: 450px;
-  border: 1px solid #ccc; /* just to visualize */
+  border: 1px solid #ccc;
+  /* just to visualize */
 }
+
 .scroll-container {
   width: 100%;
   overflow-x: auto;
@@ -261,6 +284,7 @@ td {
   tr {
     font-size: 0.9rem;
   }
+
   .footer .pagination {
     margin-left: 40%;
   }
@@ -286,10 +310,12 @@ td {
   .form__tank-block {
     display: flex;
   }
+
   .tank-form label {
     font-size: 12px;
     margin: 2px;
   }
+
   .tank-form input {
     width: 100px;
   }
@@ -297,6 +323,7 @@ td {
   .tank_table th {
     font-size: 0.8em;
   }
+
   .form__pumps-block {
     width: 100%;
   }
@@ -306,9 +333,11 @@ td {
     margin: 0;
     padding: 0;
   }
+
   .form-field-container label {
     font-size: 12px;
   }
+
   .form-field-container input {
     height: 14px;
     justify-self: end;
@@ -321,9 +350,7 @@ td {
 }
 
 /* SMALL SCREENS */
-@media (max-width: 620px) {
-}
+@media (max-width: 620px) {}
 
 /* MOBILE SMALL SCREENS */
-@media (max-width: 350px) {
-}
+@media (max-width: 350px) {}

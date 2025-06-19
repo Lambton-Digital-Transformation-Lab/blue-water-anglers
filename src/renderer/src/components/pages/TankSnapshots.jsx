@@ -82,10 +82,10 @@ export const TankSnapshotViewer = (data = []) => {
               <td>{snap.timestamp}</td>
               <td>{snap.fish_type_name}</td>
               <td className={snap.flow ? 'active-table-cell' : 'inactive-table-cell'}>
-                {snap.flow ? 'True' : 'False'}
+                {snap.flow ? 'Yes' : 'No'}
               </td>
               <td className={snap.clean ? 'active-table-cell' : 'inactive-table-cell'}>
-                {snap.clean ? 'True' : 'False'}
+                {snap.clean ? 'Yes' : 'No'}
               </td>
               <td>{snap.do_level}</td>
               <td>{snap.number_of_fishes}</td>
