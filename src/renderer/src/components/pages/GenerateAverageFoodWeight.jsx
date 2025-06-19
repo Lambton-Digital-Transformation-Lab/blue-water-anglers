@@ -22,6 +22,18 @@ export const GenerateAverageFoodWeight = () => {
   const [selectedFoodType, setSelectedFoodType] = useState('')
   const [selectedTank, setSelectedTank] = useState('')
 
+  // GR/L EQUIV
+  const foodGRL = {
+    '"0" CRUMB': 600,
+    '"1" CRUMB': 600,
+    '"2" CRUMB': 600,
+    '#1.2 MM': 600,
+    '#1.5 MM': 700,
+    '#2 MM': 800,
+    '#3 MM FLOAT': 500,
+    '#5 MM FLOAT': 500
+  }
+
   const fetchData = async () => {
     if (!startDate || !endDate) return
     setLoading(true)
@@ -29,17 +41,19 @@ export const GenerateAverageFoodWeight = () => {
       const dates = { start: startDate, end: endDate }
       const result = await window.electron.api.getDataUsingDate(dates)
 
-      console.log(result)
       // Process the tank snapshots data
       const processedData = result.flatMap((reading) => {
         const timestamp = new Date(reading.timestamp)
         return reading.tank_snapshots.map((snapshot) => {
-          // Check if diet is in Liters and convert to Grams
-          let foodWeight = snapshot.diet * snapshot.number_of_fishes
-          if (snapshot.diet_unit === 'L') {
-            // Convert liters to grams (assuming 1L = 1000g)
+          // Getting Food Weight using Diet
+          let foodWeight = snapshot.diet
+          if (snapshot.diet_type === 'L') {
+            // Converting Food Weight from Liters to Grams
             foodWeight = foodWeight * 1000
           }
+
+          // Calculating average weight using the table
+          foodWeight = foodWeight / foodGRL[snapshot.food_size]
 
           return {
             food_type: snapshot.food_size,
