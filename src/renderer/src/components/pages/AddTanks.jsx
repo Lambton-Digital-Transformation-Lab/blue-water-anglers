@@ -15,6 +15,8 @@ const foodOptions = [
 ]
 const dietTypes = ['gm', 'L']
 
+const fishType = ['Salmon', 'Brown Trout', 'Rainbow Trout']
+
 export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
   const [tankData, setTankData] = useState({
     tank_name: '',
@@ -44,7 +46,7 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
   const fetchLastWeekData = async (tankId) => {
     const response = await window.electron.api.getLastWeekData(tankId)
     if (response && response.data) {
-      return response.data 
+      return response.data
     }
     return { food_size: '', fish_size: '' }
   }
@@ -126,12 +128,18 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
         ))}
       </Select>
 
-      <FormField
-        label="FISH TYPE"
-        name="fish_type_name"
-        value={tankData.fish_type_name}
-        onChange={handleChange}
-      />
+      <div className='form__tank-block'>
+        {/* Fish Type Dropdown */}
+        <Labels>FISH TYPE</Labels>
+        <Select name="fish_type_name" value={tankData.fish_type_name} onChange={handleChange}>
+          <option value="">Select</option>
+          {fishType.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </Select>
+      </div>
 
       <div className="form__tank-block">
         <FormField
