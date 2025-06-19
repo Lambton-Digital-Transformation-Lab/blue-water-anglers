@@ -1,6 +1,6 @@
 <h1 align="center">
     <br/>
-    <img width="50px" src="./resources/icon.svg" alt="Bluewater-Logo"/>
+    <img src="./resources/icon.svg" alt="Bluewater-Logo"/>
     <br/>
 </h1>
 
@@ -24,7 +24,7 @@ This program was developed to store information about tanks, fish, and food type
 
 ### Refer to the documentation for the following:
 
-- [Installation Guide]("https://github.com/Lambton-Digital-Transformation-Lab/blue-water-anglers/blob/main/src/renderer/src/components/pages/documentation/markdown/installationGuide.md")
+- [Installation Guide](https://github.com/Lambton-Digital-Transformation-Lab/blue-water-anglers/blob/main/src/renderer/src/components/pages/documentation/markdown/installationGuide.md)
 
 - [Restore Database Guide](https://github.com/Lambton-Digital-Transformation-Lab/blue-water-anglers/blob/main/src/renderer/src/components/pages/documentation/markdown/restoreDatabaseGuide.md)
 
