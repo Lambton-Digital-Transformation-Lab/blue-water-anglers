@@ -130,8 +130,13 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
 
       <div className="form__tank-block">
         {/* Fish Type Dropdown */}
-        <Labels>FISH TYPE</Labels>
-        <Select name="fish_type_name" value={tankData.fish_type_name} onChange={handleChange}>
+        <Labels>FISH TYPE (EVERY TUESDAY)</Labels>
+        <Select 
+          name="fish_type_name" 
+          value={tankData.fish_type_name} 
+          onChange={handleChange}
+          disabled={!isTuesday && !isAdmin}
+        >
           <option value="">Select</option>
           {fishType.map((opt) => (
             <option key={opt} value={opt}>
@@ -193,11 +198,12 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
       />
 
       <FormField
-        label="NUMBER OF FISHES"
+        label="NUMBER OF FISHES (EVERY TUESDAY)"
         name="number_of_fishes"
         type="number"
         value={tankData.number_of_fishes}
         onChange={handleChange}
+        disabled={!isTuesday && !isAdmin}
       />
 
       <FormField
