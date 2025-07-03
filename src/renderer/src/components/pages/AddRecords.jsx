@@ -375,7 +375,7 @@ export const AddRecords = () => {
 
             <div className="form__button-container">
               <Button onClick={handleSubmit}>Save</Button>
-              <Button onClick={() => navigate('/')}>Exit</Button>
+              {/* <Button onClick={() => navigate('/')}>Exit</Button> */}
             </div>
           </div>
 
