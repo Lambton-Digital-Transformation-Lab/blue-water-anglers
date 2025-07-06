@@ -209,8 +209,8 @@ function handleIPC() {
     return result
   })
 
-  ipcMain.handle('fetch-last-week-data', async (event, tankId) => {
-    const result = getLastWeekData(tankId)
+  ipcMain.handle('fetch-last-week-data', async (event, tankId, timestamp = null) => {
+    const result = getLastWeekData(tankId, timestamp)
     return result
   })
   // getTodaysReadings

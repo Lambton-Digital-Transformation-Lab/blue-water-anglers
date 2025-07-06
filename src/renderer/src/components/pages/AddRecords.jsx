@@ -76,7 +76,6 @@ export const AddRecords = () => {
     }
 
     fetchUserRole()
-
   }, [id])
 
   const handleChange = (e) => {
@@ -152,13 +151,23 @@ export const AddRecords = () => {
       {isFormOpen ? (
         <TankForm
           initialData={editIndex !== null ? tanks[editIndex] : {}}
+          timestamp={formData.timestamp ? formData.timestamp : null}
           onSave={handleSave}
           onCancel={() => setIsFormOpen(false)}
         />
       ) : (
         <div className="add-record-container">
           <div className="add-records-container">
-            <FormField label="DATE" name="date" value={today} disabled />
+            <FormField
+              label="DATE"
+              name="date"
+              value={
+                formData.timestamp
+                  ? new Date(formData.timestamp).toLocaleDateString('en-GB')
+                  : today
+              }
+              disabled
+            />
 
             <div className="form-field-container">
               <label htmlFor={'header_pressure_in_south'} className="form__label">

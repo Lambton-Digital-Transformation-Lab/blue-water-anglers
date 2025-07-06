@@ -17,7 +17,7 @@ const dietTypes = ['gm', 'L']
 
 const fishType = ['Salmon', 'Brown Trout', 'Rainbow Trout']
 
-export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
+export const TankForm = ({ initialData = {}, onSave, onCancel, timestamp = null }) => {
   const [tankData, setTankData] = useState({
     tank_name: '',
     tank_id: '',
@@ -41,15 +41,6 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
   const [loader, setLoader] = useState(false)
   const [activeTanks, setActiveTanks] = useState([])
   const [selectedTank, setSelectedTank] = useState('')
-
-  // Function to fetch last week's data
-  const fetchLastWeekData = async (tankId) => {
-    const response = await window.electron.api.getLastWeekData(tankId)
-    if (response && response.data) {
-      return response.data
-    }
-    return { food_size: '', fish_size: '' }
-  }
 
   // Check if today is Tuesday
   useEffect(() => {
@@ -99,7 +90,7 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
   useEffect(() => {
     const fetchLastWeekValues = async () => {
       if (tankData.tank_id) {
-        const lastWeekData = await window.electron.api.getLastWeekData(tankData.tank_id)
+        const lastWeekData = await window.electron.api.getLastWeekData(tankData.tank_id, timestamp)
 
         setTankData((prevData) => ({
           ...prevData,

@@ -206,22 +206,24 @@ export const getAllTankInfo = () => {
   return AllTanks
 }
 
-export const getLastWeekData = (tankId) => {
+export const getLastWeekData = (tankId, timestamp = null) => {
+  const endTimestamp = timestamp || new Date().toISOString()
   const query = `
-  SELECT 
-      ts.food_size, 
-      ts.fish_size, 
-      ts.number_of_fishes, 
-      ft.fish_type_name
-  FROM tank_snapshots ts
-  INNER JOIN plant_readings pr ON ts.reading_id = pr.id
-  INNER JOIN fish_types ft ON ts.fish_type_id = ft.fish_type_id
-  WHERE ts.tank_id = ?
-  ORDER BY pr.timestamp DESC
-  LIMIT 1;
+    SELECT 
+        ts.food_size, 
+        ts.fish_size, 
+        ts.number_of_fishes, 
+        ft.fish_type_name
+    FROM tank_snapshots ts
+    INNER JOIN plant_readings pr ON ts.reading_id = pr.id
+    INNER JOIN fish_types ft ON ts.fish_type_id = ft.fish_type_id
+    WHERE ts.tank_id = ? 
+    AND pr.timestamp BETWEEN datetime(?,'-7 days') AND ?
+    ORDER BY pr.timestamp DESC
+    LIMIT 1;
   `
 
-  const result = db.prepare(query).get(tankId)
+  const result = db.prepare(query).get(tankId, endTimestamp, endTimestamp)
 
   if (result) {
     return {
