@@ -15,6 +15,7 @@ export const AddRecords = () => {
   const [tanks, setTanks] = useState([])
   const [isFormOpen, setIsFormOpen] = useState(addTanks)
   const [editIndex, setEditIndex] = useState(null)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   const [formData, setFormData] = useState({
     header_pressure_in: '',
@@ -66,9 +67,16 @@ export const AddRecords = () => {
           setTanks(data.tank_snapshots)
         }
       }
-
       fetchData()
     }
+
+    const fetchUserRole = async () => {
+      const role = await window.electron.auth.getRole()
+      if (role === 'admin') setIsAdmin(true)
+    }
+
+    fetchUserRole()
+
   }, [id])
 
   const handleChange = (e) => {
@@ -221,14 +229,14 @@ export const AddRecords = () => {
               name="east_well_pressure"
               value={formData.east_well_pressure}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
             <FormField
               label="WATER TEMPERATURE"
               name="water_temperature"
               value={formData.water_temperature}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
 
             <div className="form__blowers-block">
@@ -260,14 +268,14 @@ export const AddRecords = () => {
               name="east_blower_header_pressure"
               value={formData.east_blower_header_pressure}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
             <FormField
               label="WEST BLOWER HEADER PRESSURE"
               name="west_blower_header_pressure"
               value={formData.west_blower_header_pressure}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
 
             <FormField
@@ -283,14 +291,14 @@ export const AddRecords = () => {
               name="diesel_room_temperature"
               value={formData.diesel_room_temperature}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
             <FormField
               label="BATTERY VOLTAGE"
               name="battery_voltage"
               value={formData.battery_voltage}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
 
             <div className="form__generator-block">
@@ -316,14 +324,14 @@ export const AddRecords = () => {
                 name="generator_hours"
                 value={formData.generator_hours}
                 onChange={handleChange}
-                type='number'
+                type="number"
               />
               <FormField
                 label="GENERATOR MINUTES"
                 name="generator_minutes"
                 value={formData.generator_minutes}
                 onChange={handleChange}
-                type='number'
+                type="number"
               />
             </div>
 
@@ -332,7 +340,7 @@ export const AddRecords = () => {
               name="fuel_tank_level"
               value={formData.fuel_tank_level}
               onChange={handleChange}
-              type='number'
+              type="number"
             />
 
             <div className="form__control-block">
@@ -381,7 +389,7 @@ export const AddRecords = () => {
 
           <div className="add-tanks-container">
             <Button onClick={handleAddClick}>Add Tank</Button>
-            <Button onClick={() => navigate('/activateTanks')}>Activate Tanks</Button>
+            {isAdmin && <Button onClick={() => navigate('/activateTanks')}>Activate Tanks</Button>}
             <TankTable tanks={tanks} onEdit={handleEdit} onDelete={handleDelete} />
           </div>
         </div>

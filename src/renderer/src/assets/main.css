@@ -13,6 +13,13 @@ body {
   align-items: center;
 }
 
+.error-box {
+  position: absolute;
+  z-index: 100;
+  background-color: blue;
+}
+
+
 .tank_settings_table {
   padding-left: 20px;
   font-size: 20px;

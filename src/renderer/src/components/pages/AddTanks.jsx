@@ -103,6 +103,8 @@ export const TankForm = ({ initialData = {}, onSave, onCancel }) => {
 
         setTankData((prevData) => ({
           ...prevData,
+          number_of_fishes: lastWeekData.number_of_fishes,
+          fish_type_name: lastWeekData.fish_type_name,
           food_size: lastWeekData.food_size,
           fish_size: lastWeekData.fish_size
         }))

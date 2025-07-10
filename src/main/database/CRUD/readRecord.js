@@ -208,12 +208,17 @@ export const getAllTankInfo = () => {
 
 export const getLastWeekData = (tankId) => {
   const query = `
-    SELECT ts.food_size, ts.fish_size
-    FROM tank_snapshots ts
-    INNER JOIN plant_readings pr ON ts.reading_id = pr.id
-    WHERE ts.tank_id = ?
-    ORDER BY pr.timestamp DESC
-    LIMIT 1;
+  SELECT 
+      ts.food_size, 
+      ts.fish_size, 
+      ts.number_of_fishes, 
+      ft.fish_type_name
+  FROM tank_snapshots ts
+  INNER JOIN plant_readings pr ON ts.reading_id = pr.id
+  INNER JOIN fish_types ft ON ts.fish_type_id = ft.fish_type_id
+  WHERE ts.tank_id = ?
+  ORDER BY pr.timestamp DESC
+  LIMIT 1;
   `
 
   const result = db.prepare(query).get(tankId)
@@ -221,11 +226,13 @@ export const getLastWeekData = (tankId) => {
   if (result) {
     return {
       food_size: result.food_size || '',
-      fish_size: result.fish_size || ''
+      fish_size: result.fish_size || '',
+      number_of_fishes: result.number_of_fishes || '',
+      fish_type_name: result.fish_type_name || ''
     }
   }
 
-  return { food_size: '', fish_size: '' }
+  return { food_size: '', fish_size: '', number_of_fishes: '', fish_type_name: '' }
 }
 
 export const getTodaysReadings = () => {
