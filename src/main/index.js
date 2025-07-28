@@ -62,7 +62,6 @@ function setupAutoUpdater(mainWindow) {
 
   autoUpdater.on('update-downloaded', () => {
     mainWindow.webContents.send('update_downloaded')
-    // Uncomment to auto-install after download
     autoUpdater.quitAndInstall()
   })
 }
